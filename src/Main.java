@@ -6,6 +6,8 @@ import decoratorMode.TShirts;
 import facadeMode.Facade;
 import factoryMethodMode.AddFactory;
 import factoryMethodMode.IFactory;
+import observerMode.first.Secretary;
+import observerMode.first.StockObserver;
 import prototypeMode.origin.Resume;
 import proxyMode.Proxy2;
 import proxyMode.SchoolGirl;
@@ -221,8 +223,19 @@ public class Main {
                 break;
             case 10:{
                 System.out.println("观察者模式用例！");
-
-
+                System.out.println("双向耦合的代码！");
+                //前台小姐童子哲
+                Secretary tongzizhe = new Secretary();
+                //看股票的同事
+                StockObserver tongshi1 = new StockObserver("魏共",tongzizhe);
+                StockObserver tongshi2 = new StockObserver("医学系",tongzizhe);
+                //前台记下了两位同事
+                tongzizhe.Attach(tongshi1);
+                tongzizhe.Attach(tongshi2);
+                //发现老板回来
+                tongzizhe.SecertaryAction = "老板回来了";
+                //通知两个同事
+                tongzizhe.Notify();
 
             }
                 break;
