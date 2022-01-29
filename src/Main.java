@@ -2,6 +2,7 @@ import decoratorMode.BigTrouser;
 import decoratorMode.Finery;
 import decoratorMode.Person;
 import decoratorMode.TShirts;
+import facadeMode.Facade;
 import factoryMethodMode.AddFactory;
 import factoryMethodMode.IFactory;
 import prototypeMode.origin.Resume;
@@ -206,10 +207,15 @@ public class Main {
             case 8:{
                 System.out.println("外观模式用例！");
 
-
+                Facade facade = new Facade();
+                facade.Main();
             }
                 break;
-            case 9:
+            case 9:{
+                System.out.println("建造者模式用例！");
+
+
+            }
                 break;
             case 10:
                 break;
