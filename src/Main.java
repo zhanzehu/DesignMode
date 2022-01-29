@@ -1,3 +1,4 @@
+import builderMode.Director;
 import decoratorMode.BigTrouser;
 import decoratorMode.Finery;
 import decoratorMode.Person;
@@ -214,10 +215,16 @@ public class Main {
             case 9:{
                 System.out.println("建造者模式用例！");
 
-
+                Director director = new Director();
+                director.Main();
             }
                 break;
-            case 10:
+            case 10:{
+                System.out.println("观察者模式用例！");
+
+
+
+            }
                 break;
             case 11:
                 break;
