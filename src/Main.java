@@ -1,24 +1,26 @@
-import builderMode.Director;
-import decoratorMode.BigTrouser;
-import decoratorMode.Finery;
-import decoratorMode.Person;
-import decoratorMode.TShirts;
-import facadeMode.Facade;
-import factoryMethodMode.AddFactory;
-import factoryMethodMode.IFactory;
-import observerMode.first.Secretary;
-import observerMode.first.StockObserver;
-import prototypeMode.origin.Resume;
-import proxyMode.Proxy2;
-import proxyMode.SchoolGirl;
-import simpleFactoryMode.Operation;
-import simpleFactoryMode.OperationFactory;
-import strategyMode.factoryEx.CashFactory;
-import strategyMode.factoryEx.CashNormal;
-import strategyMode.factoryEx.CashSuper;
-import strategyMode.strategyEx.CashContext;
-import templateMethodMode.first.TestPaperA;
-import templateMethodMode.first.TestPaperB;
+import AbstractFactoryMode.*;
+import BuilderMode.Director;
+import DecoratorMode.BigTrouser;
+import DecoratorMode.Person;
+import DecoratorMode.TShirts;
+import FacadeMode.Facade;
+import FactoryMethodMode.AddFactory;
+import FactoryMethodMode.IFactory;
+import ObserverMode.first.Secretary;
+import ObserverMode.first.StockObserver;
+import ObserverMode.second.NBAObserver;
+import ObserverMode.third.Boss;
+import PrototypeMode.origin.Resume;
+import ProxyMode.Proxy2;
+import ProxyMode.SchoolGirl;
+import SimpleFactoryMode.Operation;
+import SimpleFactoryMode.OperationFactory;
+import StrategyMode.factoryEx.CashFactory;
+import StrategyMode.factoryEx.CashNormal;
+import StrategyMode.factoryEx.CashSuper;
+import StrategyMode.strategyEx.CashContext;
+import TemplateMethodMode.first.TestPaperA;
+import TemplateMethodMode.first.TestPaperB;
 
 import java.util.Scanner;
 
@@ -93,7 +95,7 @@ public class Main {
                 //使用策略模式与简单工厂模式合并编写商场系统
                 System.out.println("使用策略模式与简单工厂模式合并编写商场系统");
                 double total3 = 0.0d;
-                strategyMode.factoryAndstrategyEx.CashContext csuper2 =new strategyMode.factoryAndstrategyEx.CashContext("正常收费");
+                StrategyMode.factoryAndstrategyEx.CashContext csuper2 =new StrategyMode.factoryAndstrategyEx.CashContext("正常收费");
                 double totalPrice3 = 0d;
                 totalPrice3 = csuper2.GetResult(3.6*6.0);
                 total3 = total3 + totalPrice3;
@@ -163,14 +165,14 @@ public class Main {
 
                 System.out.println("简历的原型实现");
 
-                prototypeMode.Resume d = new prototypeMode.Resume("大鸟");
+                PrototypeMode.Resume d = new PrototypeMode.Resume("大鸟");
                 d.SetPersonalInfo("男","28");
                 d.SetWorkExperience("1998-2000","XX公司");
 
-                prototypeMode.Resume e =(prototypeMode.Resume)d.Clone();
+                PrototypeMode.Resume e =(PrototypeMode.Resume)d.Clone();
                 e.SetWorkExperience("1998-2006","YY企业");
 
-                prototypeMode.Resume f = (prototypeMode.Resume)e.Clone();
+                PrototypeMode.Resume f = (PrototypeMode.Resume)e.Clone();
                 f.SetPersonalInfo("女","24");
 
                 d.Display();
@@ -196,12 +198,12 @@ public class Main {
 
                 System.out.println("第二份作业！");
                 System.out.println( "学生甲抄的试卷：");
-                templateMethodMode.second.TestPaperA studentC = new templateMethodMode.second.TestPaperA();
+                TemplateMethodMode.second.TestPaperA studentC = new TemplateMethodMode.second.TestPaperA();
                 studentC.TestQuestion1();
                 studentC.TestQuestion2();
                 studentC.TestQuestion3();
                 System.out.println("学生乙抄的试卷：");
-                templateMethodMode.second.TestPaperB studentD = new templateMethodMode.second.TestPaperB();
+                TemplateMethodMode.second.TestPaperB studentD = new TemplateMethodMode.second.TestPaperB();
                 studentD.TestQuestion1();
                 studentD.TestQuestion2();
                 studentD.TestQuestion3();
@@ -237,9 +239,61 @@ public class Main {
                 //通知两个同事
                 tongzizhe.Notify();
 
+                System.out.println("解耦一：");
+                //前台小姐童子哲
+                ObserverMode.second.Secretary tongzizhe2 = new ObserverMode.second.Secretary();
+                //看股票的同事
+                ObserverMode.second.StockObserver tongshi3 = new ObserverMode.second.StockObserver("qq",tongzizhe2);
+                //看NBA的同事
+                NBAObserver tongshi4 = new NBAObserver("ww",tongzizhe2);
+                //前台记下了两位同事
+                tongzizhe2.Attach(tongshi3);
+                tongzizhe2.Attach(tongshi4);
+                //发现老板回来
+                tongzizhe2.SecretaryAction = "老板回来了拉";
+                //通知两位同事
+                tongzizhe2.Notify();
+
+                System.out.println("解耦二");
+                //老板胡汉三
+                Boss huhansan = new Boss();
+
+                //看股票的同事
+                ObserverMode.third.StockObserver tongshi5 = new ObserverMode.third.StockObserver("ss",huhansan);
+                //看NBA的同事
+                ObserverMode.third.NBAObserver tongshi6 = new ObserverMode.third.NBAObserver("aa",huhansan);
+
+                huhansan.Attach(tongshi5);
+                huhansan.Attach(tongshi6);
+                huhansan.Detach(tongshi5);
+
+                //老板回来了
+                huhansan.SubjectState = "我胡汉三又回来了！";
+                //发出通知
+                huhansan.Notify();
+
+
+
+
+
             }
                 break;
-            case 11:
+            case 11:{
+                System.out.println("抽象工厂模式用例！");
+                User user = new User();
+                Department department = new Department();
+
+              //AbstractFactoryMode.IFactory factory = new SQLServerFactory();
+                AbstractFactoryMode.IFactory factory = new AccessFactory();
+
+                IUser iUser = factory.CreateUser();
+                iUser.Insert(user);
+                iUser.GetUser(1);
+
+                IDepartment iDepartment = factory.CreateDepartment();
+                iDepartment.Insert(department);
+                iDepartment.GetDepartment(1);
+            }
                 break;
             case 12:
                 break;
