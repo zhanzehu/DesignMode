@@ -295,7 +295,11 @@ public class Main {
                 iDepartment.GetDepartment(1);
             }
                 break;
-            case 12:
+            case 12:{
+                System.out.println("状态模式用例！");
+
+
+            }
                 break;
             case 13:
                 break;
