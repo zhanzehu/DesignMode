@@ -38,14 +38,14 @@ public class Main {
     }
 
     public void displayMenu(){
-        System.out.println("-------------------------------设计模式用例调试菜单--------------------------------");
-        System.out.println("1.简单工厂模式（对象）  2.策略模式（算法）             3.装饰模式       4.代理模式       ");
-        System.out.println("5.工厂方法模式          6.原型模式(深复制和浅复制)     7.模板方法模式   8.外观模式       ");
-        System.out.println("9.建造者模式            10.观察者模式                  11.抽象工厂模式  12.状态模式      ");
-        System.out.println("13.适配器模式           14.备忘录模式                  15.组合模式      16.迭代器模式    ");
-        System.out.println("17.单例模式             18.桥接模式                    19.命令模式      20.职责链模式    ");
-        System.out.println("21.中介者模式           22.享元模式                    23.解释器模式    24.访问者模式    ");
-        System.out.println("-------------------------------Designed by zhanzehu------------------------------");
+        System.out.println("-------------------------------设计模式用例调试菜单-----------------------------------------------------------------");
+        System.out.println("|               01.简单工厂模式(对象)   02.策略模式(算法)             03.装饰模式         04.代理模式                   |");
+        System.out.println("|               05.工厂方法模式        06.原型模式(深复制和浅复制)     07.模板方法模式      08.外观模式                   |");
+        System.out.println("|               09.建造者模式          10.观察者模式                 11.抽象工厂模式     12.状态模式                   |");
+        System.out.println("|               13.适配器模式          14.备忘录模式                 15.组合模式         16.迭代器模式                 |");
+        System.out.println("|               17.单例模式            18.桥接模式                  19.命令模式         20.职责链模式                 |");
+        System.out.println("|               21.中介者模式          22.享元模式                  23.解释器模式        24.访问者模式                 |");
+        System.out.println("-------------------------------Designed by zhanzehu--------------------------------------------------------------");
     }
 
     public void switchOfDesignMode(Integer inputModeType) throws CloneNotSupportedException {
@@ -68,10 +68,10 @@ public class Main {
                 System.out.println("使用简单工厂模式编写商场系统");
                 double total = 0.0d;
                 CashSuper cashSuper = CashFactory.createCashAccept("正常收费");
-                double totalPrices = 0d;
+                double totalPrices;
                 totalPrices = cashSuper.acceptCash(3.6*4.0);
                 total = total + totalPrices;
-                System.out.println("单价："+"3.6"+"数量："+"4.0"+"合计："+String.valueOf(totalPrices)+"应收："+String.valueOf(total));
+                System.out.println("单价："+"3.6"+"数量："+"4.0"+"合计："+ totalPrices +"应收："+ total);
 
 
                 //使用策略模式编写商场系统
@@ -80,26 +80,25 @@ public class Main {
                 CashContext cashContext = null;
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("请输入对应的情景（1、正常收费 2、满300反100 3、打八折）：");
-                Integer in = scanner.nextInt();
-                switch (in){
-                    case 1:
-                        cashContext = new CashContext(new CashNormal());
-                        break;
-                        //省略两个子类
+                int in = scanner.nextInt();
+                if (in == 1) {
+                    cashContext = new CashContext(new CashNormal());
+                    //省略两个子类
                 }
-                double totalPrices2 = 0d;
+                double totalPrices2;
+                assert cashContext != null;
                 totalPrices2 = cashContext.GetResult(3.6*5.0);
                 total2 = total2 + totalPrices2;
-                System.out.println("单价："+"3.6"+"数量："+"5.0"+"合计："+String.valueOf(totalPrices2)+"应收："+String.valueOf(total2));
+                System.out.println("单价："+"3.6"+"数量："+"5.0"+"合计："+ totalPrices2 +"应收："+ total2);
 
                 //使用策略模式与简单工厂模式合并编写商场系统
                 System.out.println("使用策略模式与简单工厂模式合并编写商场系统");
                 double total3 = 0.0d;
                 StrategyMode.factoryAndstrategyEx.CashContext csuper2 =new StrategyMode.factoryAndstrategyEx.CashContext("正常收费");
-                double totalPrice3 = 0d;
+                double totalPrice3;
                 totalPrice3 = csuper2.GetResult(3.6*6.0);
                 total3 = total3 + totalPrice3;
-                System.out.println("单价："+"3.6"+"数量："+"5.0"+"合计："+String.valueOf(totalPrice3)+"应收："+String.valueOf(total3));
+                System.out.println("单价："+"3.6"+"数量："+"5.0"+"合计："+ totalPrice3 +"应收："+ total3);
 
             }
                 break;
